@@ -1,8 +1,6 @@
-import falcon
-
-class QuoteResource:
-    def on_get(self, req, resp):
-        """Handles GET requests"""
+class ArticleResource:
+    def on_post(self, req, resp):
+        """Handles POST requests"""
         quote = {
             'quote': (
                 "I've always been more interested in "
@@ -10,8 +8,9 @@ class QuoteResource:
             ),
             'author': 'Grace Hopper'
         }
+        print(req)
 
         resp.media = quote
 
-api = falcon.API()
-api.add_route('/quote', QuoteResource())
+    def on_get(self, req, resp):
+        resp.body = "testing"

@@ -2,13 +2,13 @@ import argparse
 import json
 
 def parse_record(record):
-    pass
+    print(record['paperId'])
 
 def load_records(path):
     f = open(path)
     for line in f:
-        data = json.loads(line)
-        print(data['inCitations'])
+        record = json.loads(line)
+        parse_record(record)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
