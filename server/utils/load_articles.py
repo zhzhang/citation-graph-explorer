@@ -23,6 +23,7 @@ def parse_record(record):
 def load_articles(path):
     f = open(path, 'rb')
     records = pickle.loads(f.read())
+    f.close()
     output = {r["paperId"]: r for r in records}
     for r in records:
         if "citations" in r.keys():
