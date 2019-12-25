@@ -1,5 +1,4 @@
 import argparse
-import json
 import pickle
 
 
@@ -24,10 +23,6 @@ def parse_record(record):
 def load_articles(path):
     f = open(path, 'rb')
     records = pickle.loads(f.read())
-    # records = []
-    # for line in f:
-    #     record = json.loads(line)
-    #     records.append(parse_record(record))
     output = {r["paperId"]: r for r in records}
     for r in records:
         if "citations" in r.keys():
