@@ -12,10 +12,11 @@ class ArticleResource:
 
     def on_get(self, req, resp):
         paper_id = req.get_param("paperId")
-        depth = int(req.get_param("depth"))
+        depth = req.get_param("depth")
         if depth is None:
             resp.body = json.dumps(self.articles[paper_id])
         else:
+            depth = int(depth)
             resp.body = json.dumps(self._bfs(paper_id, depth))
 
     def _bfs(self, root_id, max_depth):
