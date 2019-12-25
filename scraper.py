@@ -1,11 +1,13 @@
 import urllib.request
 import urllib.error
 import json
+import pickle
 import random
 
-f = open('output.json', 'wb')
 seen = set()
 stack = [('arXiv:1701.01821', 0)]
+output = []
+sampling_dampener = 0.01
 
 while len(stack) > 0:
     print(len(stack))
@@ -18,13 +20,15 @@ while len(stack) > 0:
     except urllib.error.HTTPError:
         continue
     seen.add(paper_id)
-    f.write(contents)
     contents = json.loads(contents)
+    output.append(contents)
     for paper in contents['citations']:
-        if random.random() < ((0.2 / (depth + 1)) ** depth):
+        if random.random() < ((sampling_dampener / (depth + 1)) ** depth):
             stack.append((paper['paperId'], depth + 1))
     for paper in contents['references']:
-        if random.random() < ((0.2 / (depth + 1)) ** depth):
+        if random.random() < ((sampling_dampener / (depth + 1)) ** depth):
             stack.append((paper['paperId'], depth + 1))
 
-f.close()
+
+with open('samples.pkl', 'wb') as f:
+    pickle.dump(output, f)
