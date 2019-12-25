@@ -1,27 +1,33 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import ArticleGraph from "./ArticleGraph";
+import "./App.css";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+  state = {};
+
+  async componentDidMount() {
+    console.log("hit");
+    const response = await fetch(
+      "http://localhost:8000/article?paperId=3852968082a16db8be19b4cb04fb44820ae823d4&depth=2"
     );
+    const data = await response.json();
+    this.setState({ data });
+  }
+
+  render() {
+    const { data } = this.state;
+    const renderedLayers = [];
+    if (data) {
+      for (let layer of Object.values(data)) {
+        const renderedLayer = [];
+        for (let article of layer) {
+          renderedLayer.push(<div key={article.id}>{article.title}</div>);
+        }
+        renderedLayers.push(<div>{renderedLayer}</div>);
+      }
+      return <div style={{ display: "flex" }}>{renderedLayers}</div>;
+    }
+    return <div>Loading</div>;
   }
 }
 

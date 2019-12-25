@@ -1,0 +1,6 @@
+read raw metadata, including embeddings into memcache, should fit on 64gb.
+look up edges for BFS
+look up articles against global cluster ids
+queries are cached paged by
+- root article and depth
+- cluster id
