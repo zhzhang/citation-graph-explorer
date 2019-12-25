@@ -2,7 +2,7 @@ from .utils.load_articles import load_articles
 import json
 
 
-SAMPLE_PATH = "./samples.json"
+SAMPLE_PATH = "./samples.pkl"
 
 
 class ArticleResource:
