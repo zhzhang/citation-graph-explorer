@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"time"
 )
 
 type S2Record struct {
@@ -14,8 +15,7 @@ type S2Record struct {
 }
 
 func main() {
-	fmt.Println("hello!")
-	f, err := os.Open("../s2-corpus-994.gz")
+	f, err := os.Open("../s2-corpus-1994.gz")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -23,9 +23,14 @@ func main() {
 	gr, err := gzip.NewReader(f)
 	defer gr.Close()
 	scanner := bufio.NewScanner(gr)
+	t := time.Now()
+	count := 0
 	for scanner.Scan() {
+		count++
 		record := &S2Record{}
 		json.Unmarshal(scanner.Bytes(), record)
 		fmt.Println(record)
 	}
+	fmt.Println(time.Since(t))
+	fmt.Println(count)
 }
