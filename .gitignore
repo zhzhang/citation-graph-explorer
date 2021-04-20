@@ -7,6 +7,9 @@ client/node_modules
 client/.pnp
 .pnp.js
 
+# badger DB
+server/badger/
+
 # testing
 client/coverage
 
@@ -19,6 +22,7 @@ client/build
 .env.development.local
 .env.test.local
 .env.production.local
+.vscode
 
 npm-debug.log*
 yarn-debug.log*
