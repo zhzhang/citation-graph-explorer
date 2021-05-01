@@ -8,7 +8,7 @@ client/.pnp
 .pnp.js
 
 # badger DB
-server/badger/
+backend/badger/
 
 # testing
 client/coverage
@@ -27,3 +27,5 @@ client/build
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+*.code-workspace
